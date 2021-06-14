@@ -1,21 +1,29 @@
 from setup import BOARD_HEIGHT, BOARD_WIDTH
+from generator import add_neighbour, sub_neighbour
 
 
 def next_state(cells):
-    new_cells = cells.copy()
-    for i, row in enumerate(cells):
-        for j, cell in enumerate(row):
-            nei = neighboors(cells, cell)
-            if (nei > 3 or nei < 2) and cell.is_alive:
-                new_cells[i][j].kill()
-            elif nei == 3 and not cell.is_alive:
-                new_cells[i][j].revive()
-            else:
-                pass
-    for i, row in enumerate(cells):
-        for j, cell in enumerate(row):
-            new_cells[i][j].iterate()
-    return new_cells
+    for row in cells:
+        for cell in row:
+            if cell.neighbours > 0:
+                nei = neighboors(cells, cell)
+                if (nei > 3 or nei < 2) and cell.is_alive:
+                    cell.kill()
+                elif nei == 3 and not cell.is_alive:
+                    cell.revive()
+                else:
+                    pass
+            elif cell.neighbours == 0 and cell.is_alive:
+                cell.kill()
+
+    for row in cells:
+        for cell in row:
+            prev = cell.is_alive
+            cell.iterate()
+            if cell.is_alive and cell.is_alive != prev:
+                add_neighbour(cells, cell)
+            elif not cell.is_alive and cell.is_alive != prev:
+                sub_neighbour(cells, cell)
 
 
 def neighboors(cells, cell):

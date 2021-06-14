@@ -1,13 +1,10 @@
-import random
-
-
 class Cell:
-    def __init__(self, x, y):
-        self.is_alive = random.choice(
-            [True, False, False])
+    def __init__(self, x, y, is_alive):
+        self.is_alive = is_alive
         self.x = x
         self.y = y
         self.will_be_alive = False
+        self.neighbours = 0
 
     def kill(self):
         self.will_be_alive = False
