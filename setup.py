@@ -4,8 +4,7 @@ import pygame
 pygame.init()
 
 # window properties
-MENU_HEIGHT = 80
-WINDOW_WIDTH, WINDOW_HEIGHT = 960, 720 + MENU_HEIGHT
+WINDOW_WIDTH, WINDOW_HEIGHT = 960, 720
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption('GoL')
 
