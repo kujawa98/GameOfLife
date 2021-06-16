@@ -1,5 +1,4 @@
-from setup import BOARD_HEIGHT, BOARD_WIDTH
-from generator import add_neighbour, sub_neighbour
+from neighbours_adder import *
 
 
 def next_state(cells):
@@ -21,9 +20,9 @@ def next_state(cells):
             prev = cell.is_alive
             cell.iterate()
             if cell.is_alive and cell.is_alive != prev:
-                add_neighbour(cells, cell)
+                add_neighbour(cells, cell, 1)
             elif not cell.is_alive and cell.is_alive != prev:
-                sub_neighbour(cells, cell)
+                add_neighbour(cells, cell, -1)
 
 
 def neighboors(cells, cell):
