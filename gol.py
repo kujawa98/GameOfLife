@@ -2,14 +2,13 @@ from setup import *
 from drawer import draw
 from preparer import next_state
 from generator import generate_cells
+from neighbours_adder import add_neighbour
 
 
 def main():
     current_states = generate_cells()
     clock = pygame.time.Clock()
-    draw(current_states)
     update_rect = pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
-    pygame.display.update(update_rect)
     run = True
     pause = False
     while run:
@@ -31,7 +30,13 @@ def main():
                     for row in current_states:
                         for cell in row:
                             cell.kill()
+                            prev = cell.is_alive
                             cell.iterate()
+                            if cell.is_alive != prev:
+                                if cell.is_alive:
+                                    add_neighbour(current_states, cell, 1)
+                                else:
+                                    add_neighbour(current_states, cell, -1)
                     draw(current_states)
                 if pause and event.key == pygame.K_r:
                     poz = pygame.mouse.get_pos()
@@ -43,10 +48,16 @@ def main():
                     poz = pygame.mouse.get_pos()
                     x = poz[0] // CELL_WIDTH
                     y = poz[1] // CELL_HEIGHT
-                    current_states[y][x].is_alive = True
+                    current_states[y][x].revive()
+                    prev = current_states[y][x].is_alive
+                    current_states[y][x].iterate()
+                    if current_states[y][x].is_alive != prev:
+                        if current_states[y][x].is_alive:
+                            add_neighbour(current_states, current_states[y][x], 1)
+                        else:
+                            add_neighbour(current_states, current_states[y][x], -1)
                     draw(current_states)
         pygame.display.update(update_rect)
-        print(clock.get_fps())
     pygame.quit()
 
 
