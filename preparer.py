@@ -10,13 +10,7 @@ def next_state(cells):
                 cell.kill()
     for row in cells:
         for cell in row:
-            prev = cell.is_alive
-            cell.iterate()
-            if cell.is_alive != prev:
-                if cell.is_alive:
-                    add_neighbour(cells, cell, 1)
-                else:
-                    add_neighbour(cells, cell, -1)
+            neigh_iterate(cells, cell)
 
 
 def count_state(cells, cell):
@@ -25,6 +19,16 @@ def count_state(cells, cell):
         cell.kill()
     elif nei == 3 and not cell.is_alive:
         cell.revive()
+
+
+def neigh_iterate(cells, cell):
+    prev = cell.is_alive
+    cell.iterate()
+    if cell.is_alive != prev:
+        if cell.is_alive:
+            add_neighbour(cells, cell, 1)
+        else:
+            add_neighbour(cells, cell, -1)
 
 
 def neighboors(cells, cell):
