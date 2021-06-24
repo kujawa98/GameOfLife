@@ -40,6 +40,15 @@ def main():
                 cell.kill() if cell.is_alive else cell.revive()
                 neigh_iterate(cells, cell)
                 draw(cells)
+            if event.type == pygame.MOUSEMOTION and pause:
+                if pygame.mouse.get_pressed(3)[0]:
+                    poz = pygame.mouse.get_pos()
+                    x = poz[0] // CELL_WIDTH
+                    y = poz[1] // CELL_HEIGHT
+                    cell = cells[y][x]
+                    cell.kill() if cell.is_alive else cell.revive()
+                    neigh_iterate(cells, cell)
+                    draw(cells)
         pygame.display.update(update_rect)
     pygame.quit()
 
