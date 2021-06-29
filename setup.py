@@ -10,7 +10,7 @@ pygame.display.set_caption('GoL')
 
 # colors
 BLUE = (65, 105, 225)
-WHITE = (255,255,255)
+WHITE = (255, 255, 255)
 LIMON = (147, 246, 0)
 
 # board properties

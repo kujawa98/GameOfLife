@@ -10,3 +10,5 @@ N - move to next step <br/>
 C - clear the screen <br/>
 
 You also can control cells on board by clicking left mouse button
+
+Font used in this app is copyright (c) Jakob Fischer at www.pizzadude.dk,  all rights reserved.
