@@ -20,7 +20,7 @@ def draw_menu():
 
 
 def write(iteration):
-    it = FONT.render("I t e r a t i o n     " + str(iteration), True, (0, 0, 0))
+    it = FONT.render("Iteration     " + str(iteration), True, (0, 0, 0))
     space = FONT.render("Space     to     pause", True, (0, 0, 0))
     c = FONT.render("C    to     clear    screen", True, (0, 0, 0))
     n = FONT.render("N     to     next    step", True, (0, 0, 0))
