@@ -36,6 +36,10 @@ def main():
                                 neigh_iterate(cells, cell)
                         iteration = 0
                         draw(cells, iteration)
+                    if event.key == pygame.K_r:
+                        cells = generate_cells()
+                        iteration = 0
+                        draw(cells, iteration)
             if event.type == pygame.MOUSEBUTTONDOWN and pause:
                 poz = pygame.mouse.get_pos()
                 x = poz[0] // CELL_WIDTH
