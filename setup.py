@@ -12,6 +12,7 @@ pygame.display.set_caption('GoL')
 BLUE = (65, 105, 225)
 WHITE = (255, 255, 255)
 LIMON = (147, 246, 0)
+BLACK = (0, 0, 0)
 
 # board properties
 BOARD_WIDTH, BOARD_HEIGHT = 128, 57
@@ -19,4 +20,4 @@ BOARD_WIDTH, BOARD_HEIGHT = 128, 57
 # others
 FPS = 60
 CELL_WIDTH, CELL_HEIGHT = 10, 10
-FONT = pygame.font.Font('ARCADECLASSIC.TTF', 32)
+FONT = pygame.font.Font('./ARCADECLASSIC.TTF', 32)
