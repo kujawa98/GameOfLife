@@ -6,7 +6,7 @@ pygame.init()
 # window properties
 WINDOW_WIDTH, WINDOW_HEIGHT = 600, 800
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption('GoL')
+pygame.display.set_caption('Rainbow Life')
 
 # colors
 WHITE = (255, 255, 255)

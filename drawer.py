@@ -14,3 +14,7 @@ def draw_board(cells):
                 pygame.draw.circle(window, choice(COLORS),
                                    (cell.x * CELL_DIAMETER + CELL_RADIUS, cell.y * CELL_DIAMETER + CELL_RADIUS),
                                    CELL_RADIUS)
+            else:
+                pygame.draw.circle(window, WHITE,
+                                   (cell.x * CELL_DIAMETER + CELL_RADIUS, cell.y * CELL_DIAMETER + CELL_RADIUS),
+                                   1, 1)
