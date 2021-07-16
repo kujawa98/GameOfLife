@@ -14,7 +14,7 @@ def main():
     while run:
         clock.tick(FPS)
         if not pause:
-            draw(cells, iteration)
+            draw(cells)
             next_state(cells)
             iteration += 1
         for event in pygame.event.get():
@@ -23,40 +23,38 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     pause = False if pause else True
-                    draw(cells, iteration)
+                    draw(cells)
                 if pause:
                     if event.key == pygame.K_n:
                         next_state(cells)
                         iteration += 1
-                        draw(cells, iteration)
+                        draw(cells)
                     if event.key == pygame.K_c:
                         for row in cells:
                             for cell in row:
                                 cell.kill()
                                 neigh_iterate(cells, cell)
                         iteration = 0
-                        draw(cells, iteration)
+                        draw(cells)
                     if event.key == pygame.K_r:
                         cells = generate_cells()
                         iteration = 0
-                        draw(cells, iteration)
+                        draw(cells)
             if event.type == pygame.MOUSEBUTTONDOWN and pause:
                 poz = pygame.mouse.get_pos()
                 x = poz[0] // CELL_DIAMETER
                 y = poz[1] // CELL_DIAMETER
-                if y < 57:
-                    mouse_draw(cells, x, y)
-                    iteration = 0
-                    draw(cells, iteration)
+                mouse_draw(cells, x, y)
+                iteration = 0
+                draw(cells)
             if event.type == pygame.MOUSEMOTION and pause:
                 if pygame.mouse.get_pressed(3)[0]:
                     poz = pygame.mouse.get_pos()
                     x = poz[0] // CELL_DIAMETER
                     y = poz[1] // CELL_DIAMETER
-                    if y < 57:
-                        mouse_draw(cells, x, y)
-                        iteration = 0
-                        draw(cells, iteration)
+                    mouse_draw(cells, x, y)
+                    iteration = 0
+                    draw(cells)
         pygame.display.update(update_rect)
     pygame.quit()
 
