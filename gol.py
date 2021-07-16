@@ -42,8 +42,8 @@ def main():
                         draw(cells, iteration)
             if event.type == pygame.MOUSEBUTTONDOWN and pause:
                 poz = pygame.mouse.get_pos()
-                x = poz[0] // CELL_WIDTH
-                y = poz[1] // CELL_HEIGHT
+                x = poz[0] // CELL_DIAMETER
+                y = poz[1] // CELL_DIAMETER
                 if y < 57:
                     mouse_draw(cells, x, y)
                     iteration = 0
@@ -51,8 +51,8 @@ def main():
             if event.type == pygame.MOUSEMOTION and pause:
                 if pygame.mouse.get_pressed(3)[0]:
                     poz = pygame.mouse.get_pos()
-                    x = poz[0] // CELL_WIDTH
-                    y = poz[1] // CELL_HEIGHT
+                    x = poz[0] // CELL_DIAMETER
+                    y = poz[1] // CELL_DIAMETER
                     if y < 57:
                         mouse_draw(cells, x, y)
                         iteration = 0
