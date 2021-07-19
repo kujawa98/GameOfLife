@@ -1,5 +1,9 @@
-class Cell:
+from pygame.sprite import Sprite
+
+
+class Cell(Sprite):
     def __init__(self, x, y, is_alive):
+        super().__init__()
         self.is_alive = is_alive
         self.x = x
         self.y = y

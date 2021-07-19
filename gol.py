@@ -1,62 +1,62 @@
+import pygame
+
 from setup import *
 from drawer import draw
 from preparer import next_state, neigh_iterate
 from generator import generate_cells
 
 
-def main():
-    cells = generate_cells()
-    clock = pygame.time.Clock()
-    update_rect = pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
-    run = True
-    pause = False
-    iteration = 0
-    while run:
-        clock.tick(FPS)
-        if not pause:
-            draw(cells)
-            next_state(cells)
-            iteration += 1
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    pause = False if pause else True
-                    draw(cells)
-                if pause:
-                    if event.key == pygame.K_n:
-                        next_state(cells)
-                        iteration += 1
-                        draw(cells)
-                    if event.key == pygame.K_c:
-                        for row in cells:
-                            for cell in row:
-                                cell.kill()
-                                neigh_iterate(cells, cell)
-                        iteration = 0
-                        draw(cells)
-                    if event.key == pygame.K_r:
-                        cells = generate_cells()
-                        iteration = 0
-                        draw(cells)
-            if event.type == pygame.MOUSEBUTTONDOWN and pause:
-                poz = pygame.mouse.get_pos()
-                x = poz[0] // CELL_DIAMETER
-                y = poz[1] // CELL_DIAMETER
-                mouse_draw(cells, x, y)
-                iteration = 0
-                draw(cells)
-            if event.type == pygame.MOUSEMOTION and pause:
-                if pygame.mouse.get_pressed(3)[0]:
+class RainbowLife:
+    def __init__(self):
+        pygame.init()
+        self.cells = generate_cells()
+        self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.update_rect = pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+        pygame.display.set_caption("Rainbow Life")
+
+        self.is_running = True
+        self.pause = False
+
+    def run(self):
+        while self.is_running:
+            if not self.pause:
+                draw(self.cells, self.screen)
+                next_state(self.cells)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.is_running = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.pause = False if self.pause else True
+                        draw(self.cells, self.screen)
+                    if self.pause:
+                        if event.key == pygame.K_n:
+                            next_state(self.cells)
+                            draw(self.cells, self.screen)
+                        if event.key == pygame.K_c:
+                            for row in self.cells:
+                                for cell in row:
+                                    cell.kill()
+                                    neigh_iterate(self.cells, cell)
+                            draw(self.cells, self.screen)
+                        if event.key == pygame.K_r:
+                            self.cells = generate_cells()
+                            draw(self.cells, self.screen)
+                if event.type == pygame.MOUSEBUTTONDOWN and self.pause:
                     poz = pygame.mouse.get_pos()
                     x = poz[0] // CELL_DIAMETER
                     y = poz[1] // CELL_DIAMETER
-                    mouse_draw(cells, x, y)
-                    iteration = 0
-                    draw(cells)
-        pygame.display.update(update_rect)
-    pygame.quit()
+                    mouse_draw(self.cells, x, y)
+                    draw(self.cells, self.screen)
+                if event.type == pygame.MOUSEMOTION and self.pause:
+                    if pygame.mouse.get_pressed(3)[0]:
+                        poz = pygame.mouse.get_pos()
+                        x = poz[0] // CELL_DIAMETER
+                        y = poz[1] // CELL_DIAMETER
+                        mouse_draw(self.cells, x, y)
+                        draw(self.cells, self.screen)
+            pygame.display.update(self.update_rect)
+        pygame.quit()
 
 
 def mouse_draw(cells, x, y):
@@ -66,4 +66,5 @@ def mouse_draw(cells, x, y):
 
 
 if __name__ == '__main__':
-    main()
+    rl = RainbowLife()
+    rl.run()

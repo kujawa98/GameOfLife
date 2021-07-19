@@ -1,12 +1,5 @@
-import pygame
-
-# screen setup
-pygame.init()
-
 # window properties
 WINDOW_WIDTH, WINDOW_HEIGHT = 600, 800
-window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption('Rainbow Life')
 
 # colors
 WHITE = (255, 255, 255)
@@ -25,6 +18,6 @@ COLORS = [RED, BLUE, ORANGE, YELLOW, GREEN, NAVY, PURPLE]
 BOARD_WIDTH, BOARD_HEIGHT = 60, 80
 
 # others
-FPS = 60
+FPS = 20
 CELL_RADIUS = 5
 CELL_DIAMETER = CELL_RADIUS * 2

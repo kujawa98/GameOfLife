@@ -1,12 +1,13 @@
 from setup import *
+import pygame
 
 
-def draw(cells):
+def draw(cells, window):
     window.fill(BLACK)
-    draw_board(cells)
+    draw_board(cells, window)
 
 
-def draw_board(cells):
+def draw_board(cells, window):
     for i in cells:
         for cell in i:
             if cell.is_alive:
