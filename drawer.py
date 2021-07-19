@@ -10,14 +10,7 @@ def draw(cells, window):
 def draw_board(cells, window):
     for i in cells:
         for cell in i:
-            if cell.is_alive:
-                pygame.draw.circle(window, color(cell),
-                                   (cell.x * CELL_DIAMETER + CELL_RADIUS, cell.y * CELL_DIAMETER + CELL_RADIUS),
-                                   CELL_RADIUS)
-            else:
-                pygame.draw.circle(window, WHITE,
-                                   (cell.x * CELL_DIAMETER + CELL_RADIUS, cell.y * CELL_DIAMETER + CELL_RADIUS),
-                                   1, 1)
+            cell.draw(window)
 
 
 def color(cell):
