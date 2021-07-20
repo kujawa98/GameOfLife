@@ -19,7 +19,7 @@ class Cell(Sprite):
     def revive(self):
         self.will_be_alive = True
 
-    def iterate(self):
+    def update(self):
         self.is_alive = self.will_be_alive
 
     def color(self):

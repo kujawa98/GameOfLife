@@ -97,7 +97,7 @@ class RainbowLife:
 
     def iterate_over_neighbours(self, cell):
         previous_state = cell.is_alive
-        cell.iterate()
+        cell.update()
         if cell.is_alive != previous_state:
             if cell.is_alive:
                 self.add_neighbour(cell.x, cell.y, 1)
