@@ -13,7 +13,6 @@ class RainbowLife:
         self.update_rect = pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
         pygame.display.set_caption("Rainbow Life")
 
-        self.cells = [[Cell(i, j) for i in range(BOARD_WIDTH)] for j in range(BOARD_HEIGHT)]
         self.generate_cells()
 
         self.is_running = True
@@ -30,6 +29,8 @@ class RainbowLife:
         if not self.pause:
             self.next_state()
             draw(self.cells, self.screen)
+        else:
+            draw(self.cells, self.screen)
 
     def handle_event(self):
         for event in pygame.event.get():
@@ -38,20 +39,16 @@ class RainbowLife:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.pause = False if self.pause else True
-                    draw(self.cells, self.screen)
                 if self.pause:
                     if event.key == pygame.K_n:
                         self.next_state()
-                        draw(self.cells, self.screen)
                     if event.key == pygame.K_c:
                         for row in self.cells:
                             for cell in row:
                                 cell.kill()
                                 self.neigh_iterate(cell)
-                        draw(self.cells, self.screen)
                     if event.key == pygame.K_r:
-                        self.cells = self.generate_cells()
-                        draw(self.cells, self.screen)
+                        self.generate_cells()
             if event.type == pygame.MOUSEBUTTONDOWN and self.pause:
                 poz = pygame.mouse.get_pos()
                 x = poz[0] // CELL_DIAMETER
@@ -67,6 +64,7 @@ class RainbowLife:
                     draw(self.cells, self.screen)
 
     def generate_cells(self):
+        self.cells = [[Cell(i, j) for i in range(BOARD_WIDTH)] for j in range(BOARD_HEIGHT)]
         for row in self.cells:
             for cell in row:
                 if choice([True, False, False, False]):
