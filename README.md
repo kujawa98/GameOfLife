@@ -2,9 +2,15 @@
 Basic version of Conway's GoL with some interactions and pretty nice looking colors
 
 ## How to run?
-To run this program you'll have to type
+You must have pygame installed on your system
 
-`python gol.py`
+```
+python -m pip install --user pygame
+```
+Then, to run this program type
+```
+python gol.py
+```
 
 in your python interpreter
 
@@ -17,4 +23,4 @@ in your python interpreter
 
 * **R** - randomize cells
 
-You also can control cells on board with **_left_** mouse button
+You also can add and delete cells on board with **_left_** mouse button
