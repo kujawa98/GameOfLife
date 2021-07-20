@@ -2,7 +2,6 @@ import pygame
 from random import choice
 
 from setup import *
-from drawer import draw
 from cell import Cell
 
 
@@ -26,8 +25,26 @@ class RainbowLife:
             self.update_screen()
         pygame.quit()
 
+    def update_cells(self):
+        for row in self.cells:
+            for cell in row:
+                if cell.neighbours > 0:
+                    nei = cell.neighbours
+                    if (nei > 3 or nei < 2) and cell.is_alive:
+                        cell.kill()
+                    elif nei == 3 and not cell.is_alive:
+                        cell.revive()
+                elif cell.neighbours == 0 and cell.is_alive:
+                    cell.kill()
+        for row in self.cells:
+            for cell in row:
+                self.iterate_over_neighbours(cell)
+
     def update_screen(self):
-        draw(self.cells, self.screen)
+        self.screen.fill(BLACK)
+        for row in self.cells:
+            for cell in row:
+                cell.draw(self.screen)
         pygame.display.update(self.update_rect)
 
     def handle_event(self):
@@ -44,7 +61,7 @@ class RainbowLife:
                         for row in self.cells:
                             for cell in row:
                                 cell.kill()
-                                self.neigh_iterate(cell)
+                                self.iterate_over_neighbours(cell)
                     if event.key == pygame.K_r:
                         self.generate_cells()
             if event.type == pygame.MOUSEBUTTONDOWN and self.pause:
@@ -52,14 +69,12 @@ class RainbowLife:
                 x = poz[0] // CELL_DIAMETER
                 y = poz[1] // CELL_DIAMETER
                 self.mouse_draw(x, y)
-                draw(self.cells, self.screen)
             if event.type == pygame.MOUSEMOTION and self.pause:
                 if pygame.mouse.get_pressed(3)[0]:
                     poz = pygame.mouse.get_pos()
                     x = poz[0] // CELL_DIAMETER
                     y = poz[1] // CELL_DIAMETER
                     self.mouse_draw(x, y)
-                    draw(self.cells, self.screen)
 
     def generate_cells(self):
         self.cells = [[Cell(i, j) for i in range(BOARD_WIDTH)] for j in range(BOARD_HEIGHT)]
@@ -80,25 +95,10 @@ class RainbowLife:
                 else:
                     cll.neighbours += 1 * norm
 
-    def update_cells(self):
-        for row in self.cells:
-            for cell in row:
-                if cell.neighbours > 0:
-                    nei = cell.neighbours
-                    if (nei > 3 or nei < 2) and cell.is_alive:
-                        cell.kill()
-                    elif nei == 3 and not cell.is_alive:
-                        cell.revive()
-                elif cell.neighbours == 0 and cell.is_alive:
-                    cell.kill()
-        for row in self.cells:
-            for cell in row:
-                self.neigh_iterate(cell)
-
-    def neigh_iterate(self, cell):
-        prev = cell.is_alive
+    def iterate_over_neighbours(self, cell):
+        previous_state = cell.is_alive
         cell.iterate()
-        if cell.is_alive != prev:
+        if cell.is_alive != previous_state:
             if cell.is_alive:
                 self.add_neighbour(cell.x, cell.y, 1)
             else:
@@ -107,7 +107,7 @@ class RainbowLife:
     def mouse_draw(self, x, y):
         cell = self.cells[y][x]
         cell.kill() if cell.is_alive else cell.revive()
-        self.neigh_iterate(cell)
+        self.iterate_over_neighbours(cell)
 
 
 if __name__ == '__main__':
