@@ -84,19 +84,16 @@ class RainbowLife:
         for row in self.cells:
             for cell in row:
                 if cell.neighbours > 0:
-                    self.count_state(cell)
+                    nei = cell.neighbours
+                    if (nei > 3 or nei < 2) and cell.is_alive:
+                        cell.kill()
+                    elif nei == 3 and not cell.is_alive:
+                        cell.revive()
                 elif cell.neighbours == 0 and cell.is_alive:
                     cell.kill()
         for row in self.cells:
             for cell in row:
                 self.neigh_iterate(cell)
-
-    def count_state(self, cell):
-        nei = cell.neighbours
-        if (nei > 3 or nei < 2) and cell.is_alive:
-            cell.kill()
-        elif nei == 3 and not cell.is_alive:
-            cell.revive()
 
     def neigh_iterate(self, cell):
         prev = cell.is_alive
