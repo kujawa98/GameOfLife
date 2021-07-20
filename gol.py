@@ -20,17 +20,15 @@ class RainbowLife:
 
     def run(self):
         while self.is_running:
-            self.update_cells()
+            if not self.pause:
+                self.update_cells()
             self.handle_event()
-            pygame.display.update(self.update_rect)
+            self.update_screen()
         pygame.quit()
 
-    def update_cells(self):
-        if not self.pause:
-            self.next_state()
-            draw(self.cells, self.screen)
-        else:
-            draw(self.cells, self.screen)
+    def update_screen(self):
+        draw(self.cells, self.screen)
+        pygame.display.update(self.update_rect)
 
     def handle_event(self):
         for event in pygame.event.get():
@@ -41,7 +39,7 @@ class RainbowLife:
                     self.pause = False if self.pause else True
                 if self.pause:
                     if event.key == pygame.K_n:
-                        self.next_state()
+                        self.update_cells()
                     if event.key == pygame.K_c:
                         for row in self.cells:
                             for cell in row:
@@ -82,7 +80,7 @@ class RainbowLife:
                 else:
                     cll.neighbours += 1 * norm
 
-    def next_state(self):
+    def update_cells(self):
         for row in self.cells:
             for cell in row:
                 if cell.neighbours > 0:
