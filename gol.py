@@ -57,16 +57,10 @@ class RainbowLife:
                 if self.pause:
                     self.handle_keydown_pause_events(event)
             if event.type == pygame.MOUSEBUTTONDOWN and self.pause:
-                poz = pygame.mouse.get_pos()
-                x = poz[0] // CELL_DIAMETER
-                y = poz[1] // CELL_DIAMETER
-                self.mouse_draw(x, y)
+                self.mouse_draw()
             if event.type == pygame.MOUSEMOTION and self.pause:
                 if pygame.mouse.get_pressed(3)[0]:
-                    poz = pygame.mouse.get_pos()
-                    x = poz[0] // CELL_DIAMETER
-                    y = poz[1] // CELL_DIAMETER
-                    self.mouse_draw(x, y)
+                    self.mouse_draw()
 
     def handle_keydown_pause_events(self, event):
         if event.key == pygame.K_n:
@@ -107,7 +101,10 @@ class RainbowLife:
             else:
                 self.determine_neighbours_count(cell.x, cell.y, -1)
 
-    def mouse_draw(self, x, y):
+    def mouse_draw(self):
+        poz = pygame.mouse.get_pos()
+        x = poz[0] // CELL_DIAMETER
+        y = poz[1] // CELL_DIAMETER
         cell = self.cells[y][x]
         cell.kill() if cell.is_alive else cell.revive()
         self.iterate_over_neighbours(cell)
