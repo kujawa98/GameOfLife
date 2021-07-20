@@ -55,15 +55,7 @@ class RainbowLife:
                 if event.key == pygame.K_SPACE:
                     self.pause = False if self.pause else True
                 if self.pause:
-                    if event.key == pygame.K_n:
-                        self.update_cells()
-                    if event.key == pygame.K_c:
-                        for row in self.cells:
-                            for cell in row:
-                                cell.kill()
-                                self.iterate_over_neighbours(cell)
-                    if event.key == pygame.K_r:
-                        self.generate_cells()
+                    self.handle_keydown_pause_events(event)
             if event.type == pygame.MOUSEBUTTONDOWN and self.pause:
                 poz = pygame.mouse.get_pos()
                 x = poz[0] // CELL_DIAMETER
@@ -75,6 +67,17 @@ class RainbowLife:
                     x = poz[0] // CELL_DIAMETER
                     y = poz[1] // CELL_DIAMETER
                     self.mouse_draw(x, y)
+
+    def handle_keydown_pause_events(self, event):
+        if event.key == pygame.K_n:
+            self.update_cells()
+        if event.key == pygame.K_c:
+            for row in self.cells:
+                for cell in row:
+                    cell.kill()
+                    self.iterate_over_neighbours(cell)
+        if event.key == pygame.K_r:
+            self.generate_cells()
 
     def generate_cells(self):
         self.cells = [[Cell(i, j) for i in range(BOARD_WIDTH)] for j in range(BOARD_HEIGHT)]
