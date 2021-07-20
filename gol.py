@@ -82,10 +82,10 @@ class RainbowLife:
             for cell in row:
                 if choice([True, False, False, False]):
                     cell.is_alive = True
-                    self.add_neighbour(cell.x, cell.y, 1)
+                    self.determine_neighbours_count(cell.x, cell.y, 1)
         return self.cells
 
-    def add_neighbour(self, x, y, norm):
+    def determine_neighbours_count(self, x, y, norm):
         for i in range(-1, 2):
             for j in range(-1, 2):
                 cll = self.cells[(y + i) % BOARD_HEIGHT][(x + j) % BOARD_WIDTH]
@@ -100,9 +100,9 @@ class RainbowLife:
         cell.update()
         if cell.is_alive != previous_state:
             if cell.is_alive:
-                self.add_neighbour(cell.x, cell.y, 1)
+                self.determine_neighbours_count(cell.x, cell.y, 1)
             else:
-                self.add_neighbour(cell.x, cell.y, -1)
+                self.determine_neighbours_count(cell.x, cell.y, -1)
 
     def mouse_draw(self, x, y):
         cell = self.cells[y][x]
