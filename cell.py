@@ -11,6 +11,7 @@ class Cell(Sprite):
         self.y = y
         self.will_be_alive = False
         self.neighbours = 0
+        self.color = self.color()
 
     def kill(self):
         self.will_be_alive = False
@@ -38,7 +39,7 @@ class Cell(Sprite):
 
     def draw(self, window):
         if self.is_alive:
-            pygame.draw.circle(window, self.color(),
+            pygame.draw.circle(window, self.color,
                                (self.x * CELL_DIAMETER + CELL_RADIUS, self.y * CELL_DIAMETER + CELL_RADIUS),
                                CELL_RADIUS)
         else:
