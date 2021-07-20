@@ -3,7 +3,6 @@ WINDOW_WIDTH, WINDOW_HEIGHT = 600, 800
 
 # colors
 WHITE = (255, 255, 255)
-LIMON = (147, 246, 0)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (65, 105, 225)
