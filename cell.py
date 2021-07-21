@@ -24,15 +24,16 @@ class Cell(Sprite):
 
     def color(self):
         plc = self.x * CELL_DIAMETER + CELL_RADIUS
-        if plc < 100:
+        offset = WINDOW_WIDTH // 6
+        if plc < offset:
             return RED
-        elif plc < 2 * 100:
+        elif plc < 2 * offset:
             return ORANGE
-        elif plc < 3 * 100:
+        elif plc < 3 * offset:
             return YELLOW
-        elif plc < 4 * 100:
+        elif plc < 4 * offset:
             return GREEN
-        elif plc < 5 * 100:
+        elif plc < 5 * offset:
             return BLUE
         else:
             return PURPLE
