@@ -1,14 +1,13 @@
 import pygame
-from pygame.sprite import Sprite
 from setup import *
 
 
-class Cell(Sprite):
+class Cell:
     def __init__(self, x, y):
-        super().__init__()
         self.is_alive = False
         self.x = x
         self.y = y
+        self.rect = pygame.Rect(self.x * CELL_DIAMETER, self.y * CELL_DIAMETER, CELL_DIAMETER, CELL_DIAMETER)
         self.will_be_alive = False
         self.neighbours = 0
         self.color = self.color()
@@ -40,10 +39,6 @@ class Cell(Sprite):
 
     def draw(self, window):
         if self.is_alive:
-            pygame.draw.circle(window, self.color,
-                               (self.x * CELL_DIAMETER + CELL_RADIUS, self.y * CELL_DIAMETER + CELL_RADIUS),
-                               CELL_RADIUS)
+            pygame.draw.circle(window, self.color, self.rect.center, CELL_RADIUS)
         else:
-            pygame.draw.circle(window, WHITE,
-                               (self.x * CELL_DIAMETER + CELL_RADIUS, self.y * CELL_DIAMETER + CELL_RADIUS),
-                               1, 1)
+            pygame.draw.circle(window, WHITE, self.rect.center, 1, 1)
