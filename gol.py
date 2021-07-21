@@ -12,6 +12,7 @@ class RainbowLife:
         self.update_rect = pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
         pygame.display.set_caption("Rainbow Life")
 
+        self.cells = []
         self.generate_cells()
 
         self.is_running = True
@@ -80,7 +81,6 @@ class RainbowLife:
                 if choice([True, False, False, False]):
                     cell.is_alive = True
                     self.determine_neighbours_count(cell.x, cell.y, 1)
-        return self.cells
 
     def determine_neighbours_count(self, x, y, norm):
         for i in range(-1, 2):
