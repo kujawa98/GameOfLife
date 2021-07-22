@@ -4,6 +4,7 @@ from random import choice
 from setup import *
 from cell import Cell
 from event_handler import EventHandler
+from neighbours_resolver import NeighboursResolver
 
 
 class RainbowLife:
@@ -13,13 +14,14 @@ class RainbowLife:
         self.update_rect = pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
         pygame.display.set_caption("Rainbow Life")
 
+        self.event_handler = EventHandler(self)
+        self.neighbours_resolver = NeighboursResolver(self)
+
         self.cells = []
         self.generate_cells()
 
         self.is_running = True
         self.pause = False
-
-        self.event_handler = EventHandler(self)
 
     def run(self):
         while self.is_running:
@@ -42,7 +44,7 @@ class RainbowLife:
                     cell.kill()
         for row in self.cells:
             for cell in row:
-                self.iterate_over_neighbours(cell)
+                self.neighbours_resolver.iterate_over_neighbours(cell)
 
     def update_screen(self):
         self.screen.fill(BLACK)
@@ -57,26 +59,7 @@ class RainbowLife:
             for cell in row:
                 if choice([True, False, False, False]):
                     cell.is_alive = True
-                    self.determine_neighbours_count(cell.x, cell.y, 1)
-
-    def determine_neighbours_count(self, x, y, norm):
-        for i in range(-1, 2):
-            for j in range(-1, 2):
-                cll = self.cells[(y + i) % BOARD_HEIGHT][(x + j) % BOARD_WIDTH]
-                if i == 0:
-                    if j != 0:
-                        cll.neighbours += 1 * norm
-                else:
-                    cll.neighbours += 1 * norm
-
-    def iterate_over_neighbours(self, cell):
-        previous_state = cell.is_alive
-        cell.update()
-        if cell.is_alive != previous_state:
-            if cell.is_alive:
-                self.determine_neighbours_count(cell.x, cell.y, 1)
-            else:
-                self.determine_neighbours_count(cell.x, cell.y, -1)
+                    self.neighbours_resolver.determine_neighbours_count(cell.x, cell.y, 1)
 
     def mouse_add(self):
         poz = pygame.mouse.get_pos()
@@ -84,7 +67,7 @@ class RainbowLife:
         y = poz[1] // CELL_DIAMETER
         cell = self.cells[y][x]
         cell.kill() if cell.is_alive else cell.revive()
-        self.iterate_over_neighbours(cell)
+        self.neighbours_resolver.iterate_over_neighbours(cell)
 
 
 if __name__ == '__main__':

@@ -27,6 +27,6 @@ class EventHandler:
             for row in self.rl_game.cells:
                 for cell in row:
                     cell.kill()
-                    self.rl_game.iterate_over_neighbours(cell)
+                    self.rl_game.neighbours_resolver.iterate_over_neighbours(cell)
         if event.key == pygame.K_r:
             self.rl_game.generate_cells()
