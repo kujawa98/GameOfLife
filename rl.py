@@ -3,6 +3,7 @@ from random import choice
 
 from setup import *
 from cell import Cell
+from event_handler import EventHandler
 
 
 class RainbowLife:
@@ -18,11 +19,13 @@ class RainbowLife:
         self.is_running = True
         self.pause = False
 
+        self.event_handler = EventHandler(self)
+
     def run(self):
         while self.is_running:
             if not self.pause:
                 self.update_cells()
-            self.handle_event()
+            self.event_handler.handle_event()
             self.update_screen()
         pygame.quit()
 
@@ -47,32 +50,6 @@ class RainbowLife:
             for cell in row:
                 cell.draw(self.screen)
         pygame.display.update(self.update_rect)
-
-    def handle_event(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.is_running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.pause = False if self.pause else True
-                if self.pause:
-                    self.handle_keydown_pause_events(event)
-            if event.type == pygame.MOUSEBUTTONDOWN and self.pause:
-                self.mouse_draw()
-            if event.type == pygame.MOUSEMOTION and self.pause:
-                if pygame.mouse.get_pressed(3)[0]:
-                    self.mouse_draw()
-
-    def handle_keydown_pause_events(self, event):
-        if event.key == pygame.K_n:
-            self.update_cells()
-        if event.key == pygame.K_c:
-            for row in self.cells:
-                for cell in row:
-                    cell.kill()
-                    self.iterate_over_neighbours(cell)
-        if event.key == pygame.K_r:
-            self.generate_cells()
 
     def generate_cells(self):
         self.cells = [[Cell(i, j) for i in range(BOARD_WIDTH)] for j in range(BOARD_HEIGHT)]
