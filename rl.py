@@ -78,7 +78,7 @@ class RainbowLife:
             else:
                 self.determine_neighbours_count(cell.x, cell.y, -1)
 
-    def mouse_draw(self):
+    def mouse_add(self):
         poz = pygame.mouse.get_pos()
         x = poz[0] // CELL_DIAMETER
         y = poz[1] // CELL_DIAMETER

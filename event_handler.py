@@ -15,10 +15,10 @@ class EventHandler:
                 if self.rl_game.pause:
                     self.handle_keydown_pause_events(event)
             if event.type == pygame.MOUSEBUTTONDOWN and self.rl_game.pause:
-                self.rl_game.mouse_draw()
+                self.rl_game.mouse_add()
             if event.type == pygame.MOUSEMOTION and self.rl_game.pause:
                 if pygame.mouse.get_pressed(3)[0]:
-                    self.rl_game.mouse_draw()
+                    self.rl_game.mouse_add()
 
     def handle_keydown_pause_events(self, event):
         if event.key == pygame.K_n:
