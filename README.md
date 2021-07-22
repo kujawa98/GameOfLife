@@ -9,7 +9,7 @@ python -m pip install --user pygame
 ```
 Then, to run this program type
 ```
-python gol.py
+python rl.py
 ```
 
 in your python interpreter
