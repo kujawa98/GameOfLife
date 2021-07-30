@@ -1,6 +1,11 @@
 # Rainbow Life
 Basic version of Conway's GoL with some interactions and pretty nice looking colors
 
+## Technologies
+Project is created with:
+* Python 3.9
+* PyGame 2.0.1
+
 ## How to run?
 You must have pygame installed on your system
 
@@ -13,6 +18,10 @@ python rl.py
 ```
 
 in your python interpreter
+
+If everything went properly, you should see picture like that
+
+![Rainbow Life start](./imgs/rl.png)
 
 ## Controls
 * **Space** - pause/play
