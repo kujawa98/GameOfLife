@@ -1,10 +1,13 @@
 from setup import BOARD_WIDTH, BOARD_HEIGHT
 
-
+#class for resolving living neighbours count
 class NeighboursResolver:
     def __init__(self, rl_game):
         self.rl_game = rl_game
 
+    #this method determines neighbours that are alive
+    #if norm is 1 that means that neighbour is alive
+    #otherwise it's dead
     def determine_neighbours_count(self, x, y, norm):
         for i in range(-1, 2):
             for j in range(-1, 2):
@@ -15,6 +18,9 @@ class NeighboursResolver:
                 else:
                     cll.neighbours += 1 * norm
 
+    #this method iterates over neighbours and based
+    #on it's state it calls determine_neighbours_count
+    #with appropiate norm
     def iterate_over_neighbours(self, cell):
         previous_state = cell.is_alive
         cell.update()

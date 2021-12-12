@@ -1,14 +1,16 @@
 import pygame
 from setup import *
 
-
+# Basic cell class
 class Cell:
     def __init__(self, x, y):
         self.is_alive = False
         self.x = x
         self.y = y
+        #every cell has its own rectangle that's controlling its rendering
         self.rect = pygame.Rect(self.x * CELL_DIAMETER, self.y * CELL_DIAMETER, CELL_DIAMETER, CELL_DIAMETER)
         self.will_be_alive = False
+        #living neighbours count
         self.neighbours = 0
         self.color = self.color()
 
@@ -21,6 +23,7 @@ class Cell:
     def update(self):
         self.is_alive = self.will_be_alive
 
+    #color resolving method based on cell x coordinate
     def color(self):
         plc = self.x * CELL_DIAMETER + CELL_RADIUS
         offset = WINDOW_WIDTH // 6
